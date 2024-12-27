@@ -1,6 +1,13 @@
 const Reservation = () => {
     return (
-        <p>This is a Reservation component</p>
+        <div style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+        }}>
+            <h1>Welcome to Reservation !!!</h1>
+        </div>
     );
 }
 

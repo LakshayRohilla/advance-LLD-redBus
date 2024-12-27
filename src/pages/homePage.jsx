@@ -3,8 +3,10 @@ import HomePageContent from '../components/homePageContent';
 
 const HomePage = () => {
     return (
+        <>
         <NavBar/>
         <HomePageContent/>
+        </>
     );
 }
 
