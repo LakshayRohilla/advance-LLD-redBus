@@ -13,6 +13,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
 
 interface Props {
   /**
@@ -24,6 +25,7 @@ interface Props {
 
 const drawerWidth = 240;
 const navItems = ['Dashboard', 'Reservation'];
+const routesLink = ['/dashboard', '/reservation'];
 
 export default function NavBar(props: Props) {
   const { window } = props;
@@ -35,13 +37,16 @@ export default function NavBar(props: Props) {
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+      <Typography variant="h6" sx={{ my: 2 ,
+              color: 'inherit',
+              textDecoration: 'none'}} component={Link} to='/' >
         My Bus
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+        {navItems.map((item, i) => (
+          <ListItem key={item} disablePadding component={Link} to={routesLink[i]} sx={{color: 'inherit',
+            textDecoration: 'none'}}>
             <ListItemButton sx={{ textAlign: 'center' }}>
               <ListItemText primary={item} />
             </ListItemButton>
@@ -69,14 +74,16 @@ export default function NavBar(props: Props) {
           </IconButton>
           <Typography
             variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+            component={Link}
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' }, color: 'inherit',
+            textDecoration: 'none' }}
+            to='/'
           >
             My Bus
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#fff' }}>
+            {navItems.map((item, i) => (
+              <Button key={item} sx={{ color: '#fff'}} component={Link} to={routesLink[i]}>
                 {item}
               </Button>
             ))}

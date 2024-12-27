@@ -1,9 +1,10 @@
 import Reservation from "../components/reservation";
+import NavBar from "../components/navBar";
 
 const ReservationPage = () => {
   return (
     <>
-      <p>NavBar</p>
+      <NavBar/>
       <Reservation />
     </>
   );

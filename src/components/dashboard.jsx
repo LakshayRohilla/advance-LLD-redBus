@@ -7,7 +7,14 @@ const Dashboard = () => {
     // Fetch user details from local storage store
 
     return (
-        <p>This is a dashboard component</p>
+        <div style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+        }}>
+            <h1>Welcome to Dashboard !!!</h1>
+        </div>
         // {if we have user info && <UserListTable name={name} email={email} seatNumber={seatNumber} dateOfBooking={dateOfBooking}/>}
         // {!userInfo && No user found}
     );
