@@ -4,6 +4,8 @@ import BusSeatLayput from "../layout/busSeatLayout";
 import Grid from "@mui/material/Grid2";
 import BusSeat from "../UI/busSeat";
 import BusBackSeat from "../UI/busBackSeat";
+import UserInfoForm from '../UI/userInfoForm'
+import {useState} from 'react';
 
 const ReservationSeatLayout = () => {
   // You have to take this from the store
@@ -13,6 +15,8 @@ const ReservationSeatLayout = () => {
   const upperBackSeat = [1];
   const upperRightSeats = [1, 0, 0, 1, 0, 0, 0, 0, 1, 0];
   const upperLeftSeats = [1, 1, 0, 1, 0];
+
+  const[reserveTicketClicked, setReserveTicketClicked] = useState(false);
 
   return (
     <Box>
@@ -97,8 +101,17 @@ const ReservationSeatLayout = () => {
                 </Grid>
               </Grid>
             </Box>
+            {reserveTicketClicked && <UserInfoForm/>}
           </Box>
-          <Button variant="contained">Book Now</Button>
+          { !reserveTicketClicked && <Button
+                  type="submit"
+                  // fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2, color: 'white', backgroundColor: 'black', '&:hover': { backgroundColor: 'grey' }}}
+                  onClick={()=>setReserveTicketClicked(true)}
+                >
+                  Reserve Your Tickets Now
+          </Button>}
       </Box>
       
     </Box>
