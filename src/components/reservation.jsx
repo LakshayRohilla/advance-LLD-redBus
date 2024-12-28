@@ -1,14 +1,17 @@
+import { Box, Typography } from "@mui/material";
+import ReservationSeatlayout from "./shared/layout/reservationSeatLayout";
+
 const Reservation = () => {
-    return (
-        <div style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: "100vh",
-        }}>
-            <h1>Welcome to Reservation !!!</h1>
-        </div>
-    );
-}
+  return (
+    <Box sx={{ mt: 9, pb:3, backgroundColor:"#eaeded", }}>
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold" }}>
+          Welcome to Reservation !!!
+        </Typography>
+      </Box>
+      <ReservationSeatlayout/>
+    </Box>
+  );
+};
 
 export default Reservation;
