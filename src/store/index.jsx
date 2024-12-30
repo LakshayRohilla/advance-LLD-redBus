@@ -4,8 +4,7 @@ import seatInfoReducer from './slices/seatInfo';
 
 
 const store = configureStore({
-    user: userInfoReducer,
-    seat: seatInfoReducer
+    reducer:{ user: userInfoReducer, seat: seatInfoReducer }
 })
 
 export default store;

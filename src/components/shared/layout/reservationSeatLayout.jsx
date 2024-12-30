@@ -6,15 +6,18 @@ import BusSeat from "../UI/busSeat";
 import BusBackSeat from "../UI/busBackSeat";
 import UserInfoForm from '../UI/userInfoForm'
 import {useState} from 'react';
+import { useSelector } from "react-redux";
 
 const ReservationSeatLayout = () => {
-  // You have to take this from the store
-  const lowerBackSeat = [1];
-  const lowerRightSeats = [0, 1, 0, 0, 0, 0, 1, 1, 0, 0];
-  const lowerLeftSeats = [0, 1, 0, 1, 1];
-  const upperBackSeat = [1];
-  const upperRightSeats = [1, 0, 0, 1, 0, 0, 0, 0, 1, 0];
-  const upperLeftSeats = [1, 1, 0, 1, 0];
+  
+  const seat = useSelector((state) => state.seat);
+
+  const lowerBackSeat = [seat.seatInfo.lowerBackSeat.last];
+  const lowerRightSeats = Object.values(seat.seatInfo.lowerRightSeats);
+  const lowerLeftSeats = Object.values(seat.seatInfo.lowerLeftSeats);
+  const upperBackSeat = [seat.seatInfo.upperBackSeat.last];
+  const upperRightSeats = Object.values(seat.seatInfo.upperRightSeats);
+  const upperLeftSeats = Object.values(seat.seatInfo.upperLeftSeats);
 
   const[reserveTicketClicked, setReserveTicketClicked] = useState(false);
 
