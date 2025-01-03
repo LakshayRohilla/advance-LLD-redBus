@@ -40,6 +40,9 @@ const ReservationSeatLayout = () => {
     console.log(allSelectedSeats);
   }
   // 2 - for getting user input from from
+  const getUserDetails = (userData) => {
+    console.log(userData)
+  }
   // 3 - once save button , we will dispatch 
 
   return (
@@ -125,7 +128,7 @@ const ReservationSeatLayout = () => {
                 </Grid>
               </Grid>
             </Box>
-            {reserveTicketClicked && <UserInfoForm/>}
+            {reserveTicketClicked && <UserInfoForm getUserDetails={getUserDetails}/>}
           </Box>
           { !reserveTicketClicked && <Button
                   type="submit"
