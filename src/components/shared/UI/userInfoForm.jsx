@@ -29,7 +29,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function UserInfoForm() {
+export default function UserInfoForm({getUserDetails}) {
     //  IMP NOTE : The reason I added the state here is later Ill be using the same form to edit the details too.
     // If edit is not required then just send the data data.get('firstName') to the store and that will work fine.
 //   const cart = useSelector((state) => state.cart);
@@ -49,15 +49,15 @@ export default function UserInfoForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      firstName: data.get('firstName'),
-      lastName: data.get('lastName'),
-      email: data.get('email')
-    });
+    // console.log({
+    //   firstName: data.get('firstName'),
+    //   lastName: data.get('lastName'),
+    //   email: data.get('email')
+    // });
     setFirstName(data.get('firstName'));
     setLastName(data.get('lastName'));
     setEmail(data.get('email'));
-    console.log(firstName, lastName, email);
+    getUserDetails({firstName, lastName, email});
 
     // dispatch(saveShippingAddress({ address, city, code, country }));
     // navigate('/payment');
