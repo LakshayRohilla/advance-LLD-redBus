@@ -6,18 +6,22 @@ import BusSeat from "../UI/busSeat";
 import BusBackSeat from "../UI/busBackSeat";
 import UserInfoForm from '../UI/userInfoForm'
 import {useState} from 'react';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { saveUserData } from '../../../store/slices/userInfo';
+import { updateSeats } from '../../../store/slices/seatInfo';
 
 const ReservationSeatLayout = () => {
 
-  const seat = useSelector((state) => state.seat);
+  const {seatInfo} = useSelector((state) => state.seat);
+  const dispatch = useDispatch();
+  const [allSelectedSeats, setAllSelectedSeats] = useState([])
 
-  const lowerBackSeat = seat.seatInfo.lowerBackSeat[0].last;
-  const lowerRightSeats = seat.seatInfo.lowerRightSeats;
-  const lowerLeftSeats = seat.seatInfo.lowerLeftSeats;
-  const upperBackSeat = seat.seatInfo.upperBackSeat[0].last;
-  const upperRightSeats = seat.seatInfo.upperRightSeats;
-  const upperLeftSeats = seat.seatInfo.upperLeftSeats;
+  const lowerBackSeat = seatInfo.lowerBackSeat;
+  const lowerRightSeats = seatInfo.lowerRightSeats;
+  const lowerLeftSeats = seatInfo.lowerLeftSeats;
+  const upperBackSeat = seatInfo.upperBackSeat;
+  const upperRightSeats = seatInfo.upperRightSeats;
+  const upperLeftSeats = seatInfo.upperLeftSeats;
 
   // const lowerBackSeat = [1];
   // const lowerRightSeats = [0, 1, 0, 0, 0, 0, 1, 1, 0, 0];
@@ -32,18 +36,18 @@ const ReservationSeatLayout = () => {
   // only once we will dispatch once for sving user info.
   // we must have 3 functions here.
   // 1 - for getting which seat is selected
-  let allSelectedSeats = [];
   const selectedSeats = (seat) => {
     if(allSelectedSeats.includes(seat)){
-      allSelectedSeats = allSelectedSeats.filter((existingSeat) => existingSeat!==seat)
-    } else allSelectedSeats.push(seat);
-    console.log(allSelectedSeats);
+      setAllSelectedSeats(allSelectedSeats.filter((existingSeat) => existingSeat!==seat));
+    } else setAllSelectedSeats([...allSelectedSeats, seat]);
   }
   // 2 - for getting user input from from
-  const getUserDetails = (userData) => {
-    console.log(userData)
-  }
   // 3 - once save button , we will dispatch 
+  const getUserDetails = (userData) => {
+    // as onSubmit we are getting this data. Means on submit we are executing this function inside submit then we can dispatch in this function itself.
+    dispatch(saveUserData({...userData, allSelectedSeats}));
+    dispatch(updateSeats(allSelectedSeats));
+  }
 
   return (
     <Box>

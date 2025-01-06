@@ -12,7 +12,7 @@ const userListSlice = createSlice({
   reducers: {
     saveUserData: (state, action) => {
       state.userList = [...state.userList, action.payload];
-      localStorage.setItem('userList', JSON.stringify(state)); // as we need all the info to be stored in the localStorage.
+      localStorage.setItem('userList', JSON.stringify(state.userList)); // as we need all the info to be stored in the localStorage.
     // //   else , to save particular data in localStorage
     // const updatedUserList = [...state.userList, action.payload]; 
     //   state.userList = updatedUserList; 
