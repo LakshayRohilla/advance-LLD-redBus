@@ -4,7 +4,8 @@ const initialState = {
   seatInfo: localStorage.getItem("seatInfo")
     ? JSON.parse(localStorage.getItem("seatInfo"))
     : {
-        lowerBackSeat: [{ last: 1 }],
+        // lowerBackSeat: [{ last: 1 }] // as its already booked in the problem statement.
+        lowerBackSeat: 1, // I'm directly providing 1.
         lowerRightSeats: [
           { "First Lower Right": 0 },
           { "Second Lower Right": 1 },
@@ -24,7 +25,8 @@ const initialState = {
           { "Forth Lower Left": 1 },
           { "Fifth Lower Left": 1 },
         ],
-        upperBackSeat: [{ last: 1 }],
+        //upperBackSeat: [{ last: 1 }],// as its already booked in the problem statement.
+        upperBackSeat: 1,
         upperRightSeats: [
           { "First Upper Right": 1 },
           { "Second Upper Right": 0 },
@@ -51,34 +53,38 @@ const seatInfoSlice = createSlice({
   name: "seatInfo",
   initialState,
   reducers: {
-    updateLowerRightSeats: (state, action) => {
-      const whichSeat = action.payload;
-      state.seatInfo.lowerRightSeats[whichSeat] = 1;
-      localStorage.setItem("seatInfo", JSON.stringify(state.seatInfo));
-    },
-    updateLowerLeftSeats: (state, action) => {
-      const whichSeat = action.payload;
-      state.seatInfo.lowerLeftSeats[whichSeat] = 1;
-      localStorage.setItem("seatInfo", JSON.stringify(state.seatInfo));
-    },
-    updateUpperRightSeats: (state, action) => {
-      const whichSeat = action.payload;
-      state.seatInfo.upperRightSeats[whichSeat] = 1;
-      localStorage.setItem("seatInfo", JSON.stringify(state.seatInfo));
-    },
-    updateUpperLeftSeats: (state, action) => {
-      const whichSeat = action.payload;
-      state.seatInfo.upperLeftSeats[whichSeat] = 1;
+    updateSeats: (state, action) => {
+      const seatNames = action.payload;
+      
+      const updateSeatState = (seatArray) => { // I'm taking helper function to update the seats
+        return seatArray.map((seat) => {
+          const [seatName, seatValue] = Object.entries(seat)[0];
+          if (seatNames.includes(seatName)) {
+            return { [seatName]: 1 }; 
+          }
+          return seat; 
+        });
+      };
+
+      // Update all relevant seat arrays
+      state.seatInfo.lowerRightSeats = updateSeatState(
+        state.seatInfo.lowerRightSeats
+      );
+      state.seatInfo.lowerLeftSeats = updateSeatState(
+        state.seatInfo.lowerLeftSeats
+      );
+      state.seatInfo.upperRightSeats = updateSeatState(
+        state.seatInfo.upperRightSeats
+      );
+      state.seatInfo.upperLeftSeats = updateSeatState(
+        state.seatInfo.upperLeftSeats
+      );
+      
       localStorage.setItem("seatInfo", JSON.stringify(state.seatInfo));
     },
   },
 });
 
-export const {
-  updateLowerRightSeats,
-  updateLowerLeftSeats,
-  updateUpperRightSeats,
-  updateUpperLeftSeats,
-} = seatInfoSlice.actions;
+export const { updateSeats } = seatInfoSlice.actions;
 
 export default seatInfoSlice.reducer;
