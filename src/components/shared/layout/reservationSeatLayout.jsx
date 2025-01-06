@@ -9,11 +9,14 @@ import {useState} from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { saveUserData } from '../../../store/slices/userInfo';
 import { updateSeats } from '../../../store/slices/seatInfo';
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const ReservationSeatLayout = () => {
 
   const {seatInfo} = useSelector((state) => state.seat);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [allSelectedSeats, setAllSelectedSeats] = useState([])
 
   const lowerBackSeat = seatInfo.lowerBackSeat;
@@ -47,6 +50,8 @@ const ReservationSeatLayout = () => {
     // as onSubmit we are getting this data. Means on submit we are executing this function inside submit then we can dispatch in this function itself.
     dispatch(saveUserData({...userData, allSelectedSeats}));
     dispatch(updateSeats(allSelectedSeats));
+    navigate("/");
+    toast.success("Ticket reservation is successfully ");
   }
 
   return (
