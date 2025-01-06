@@ -18,6 +18,8 @@ const ReservationSeatLayout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [allSelectedSeats, setAllSelectedSeats] = useState([])
+  const currentDate = new Date();
+  const formattedDate = `${currentDate.getDate()}-${currentDate.getMonth() + 1}-${currentDate.getFullYear()}`; // YYYY-MM-DD
 
   const lowerBackSeat = seatInfo.lowerBackSeat;
   const lowerRightSeats = seatInfo.lowerRightSeats;
@@ -48,10 +50,10 @@ const ReservationSeatLayout = () => {
   // 3 - once save button , we will dispatch 
   const getUserDetails = (userData) => {
     // as onSubmit we are getting this data. Means on submit we are executing this function inside submit then we can dispatch in this function itself.
-    dispatch(saveUserData({...userData, allSelectedSeats}));
+    dispatch(saveUserData({...userData, allSelectedSeats, dateOfBooking: formattedDate}));
     dispatch(updateSeats(allSelectedSeats));
     navigate("/");
-    toast.success("Ticket reservation is successfully ");
+    toast.success("Ticket reservation done !!!");
   }
 
   return (
