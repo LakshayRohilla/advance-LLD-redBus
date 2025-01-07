@@ -19,9 +19,9 @@ const userListSlice = createSlice({
     //   localStorage.setItem("userList", JSON.stringify(updatedUserList)); 
     },
     updateUserData: (state, action) => {
-      const { firstName, lastName, email } = action.payload;
+      const { firstName, lastName, email, oldEmail} = action.payload;
 
-      const userIndex = state.userList.findIndex(user => user.email === email);
+      const userIndex = state.userList.findIndex(user => user.email === oldEmail);
      
           state.userList[userIndex] = {
             ...state.userList[userIndex],

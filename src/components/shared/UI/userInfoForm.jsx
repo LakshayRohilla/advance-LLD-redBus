@@ -36,6 +36,7 @@ export default function UserInfoForm({getUserDetails, edit, passangerData}) {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [editForm, setEditForm] = useState(edit);
+  const [oldEmail, setOldEmail] = useState('');
   
 
   const navigate = useNavigate();
@@ -46,6 +47,7 @@ export default function UserInfoForm({getUserDetails, edit, passangerData}) {
         setFirstName(passangerData.firstName);
         setLastName(passangerData.lastName);
         setEmail(passangerData.email);
+        setOldEmail(passangerData.email)
     }
     }, [passangerData]);
 
@@ -63,7 +65,7 @@ export default function UserInfoForm({getUserDetails, edit, passangerData}) {
     {!editForm && getUserDetails({firstName, lastName, email})}
 
     if(editForm){
-      dispatch(updateUserData({firstName, lastName, email}));
+      dispatch(updateUserData({firstName, lastName, email, oldEmail}));
       navigate("/dashboard");
       setEditForm(!editForm);
       toast.success("Details updated successfully !!!");
