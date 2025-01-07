@@ -18,9 +18,23 @@ const userListSlice = createSlice({
     //   state.userList = updatedUserList; 
     //   localStorage.setItem("userList", JSON.stringify(updatedUserList)); 
     },
-  },
+    updateUserData: (state, action) => {
+      const { firstName, lastName, email } = action.payload;
+
+      const userIndex = state.userList.findIndex(user => user.email === email);
+     
+          state.userList[userIndex] = {
+            ...state.userList[userIndex],
+              firstName,
+              lastName,
+              email
+          };
+
+          localStorage.setItem('userList', JSON.stringify(state.userList));
+      },
+    },
 });
 
-export const { saveUserData } = userListSlice.actions;
+export const { saveUserData, updateUserData } = userListSlice.actions;
 
 export default userListSlice.reducer;

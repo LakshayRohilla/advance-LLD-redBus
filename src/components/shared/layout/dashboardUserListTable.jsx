@@ -1,14 +1,11 @@
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
-import Table from '@mui/material/Table';
+import { Table, Button, TableHead, TableRow, Paper, TableContainer, Box } from '@mui/material';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -32,7 +29,15 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 export default function DashboardUserListTable() {
     const {userList} = useSelector((state) => state.user);
-    console.log(userList);
+    const navigate = useNavigate();
+
+    const handleEdit = (row) => {
+      navigate('/edit-passanger', {state: row});
+    };
+  
+    const handleDelete = (row) => {
+      alert(`Delete clicked for: ${row.firstName} ${row.lastName}`);
+    };
     
   return (
     <TableContainer component={Paper}>
@@ -44,6 +49,7 @@ export default function DashboardUserListTable() {
             <StyledTableCell align="right">Email</StyledTableCell>
             <StyledTableCell align="right">Selected Seats</StyledTableCell>
             <StyledTableCell align="right">Date of Booking</StyledTableCell>
+            <StyledTableCell align="center">Action</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -56,6 +62,26 @@ export default function DashboardUserListTable() {
               <StyledTableCell align="right">{row.email}</StyledTableCell>
               <StyledTableCell align="right">{row.allSelectedSeats.join(', ')}</StyledTableCell>
               <StyledTableCell align="right">{row.dateOfBooking}</StyledTableCell>
+              <StyledTableCell align="center">
+              <Box sx={{ display: 'flex', gap: '8px', justifyContent: 'center' }}>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    size="small"
+                    onClick={() => handleEdit(row)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    size="small"
+                    onClick={() => handleDelete(row)}
+                  >
+                    Delete
+                  </Button>
+                </Box>
+              </StyledTableCell>
             </StyledTableRow>
           ))}
         </TableBody>

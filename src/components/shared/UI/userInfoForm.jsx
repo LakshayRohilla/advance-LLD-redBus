@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,8 +10,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
-// import { useDispatch, useSelector } from "react-redux";
-// import { saveShippingAddress } from '../../store/slices/cartSlice';
+import { updateUserData } from '../../../store/slices/userInfo'
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
 
 function Copyright(props) {
   return (
@@ -29,22 +30,24 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function UserInfoForm({getUserDetails}) {
-    //  IMP NOTE : The reason I added the state here is later Ill be using the same form to edit the details too.
-    // If edit is not required then just send the data data.get('firstName') to the store and that will work fine.
-//   const cart = useSelector((state) => state.cart);
-//   const { shippingAddress } = cart;
-
-//   const [firstName, setFirstName] = useState(state?.firstName || '');
-//   const [lastName, setLastName] = useState(state?.lastName || '');
-//   const [email, setEmail] = useState(state?.email|| '');
+export default function UserInfoForm({getUserDetails, edit, passangerData}) {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [editForm, setEditForm] = useState(edit);
+  
 
-//   const navigate = useNavigate();
-//   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+    useEffect(()=>{
+      if (passangerData) {
+        console.log("Passenger data updated:", passangerData);
+        setFirstName(passangerData.firstName);
+        setLastName(passangerData.lastName);
+        setEmail(passangerData.email);
+    }
+    }, [passangerData]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -57,10 +60,14 @@ export default function UserInfoForm({getUserDetails}) {
     setFirstName(data.get('firstName'));
     setLastName(data.get('lastName'));
     setEmail(data.get('email'));
-    getUserDetails({firstName, lastName, email});
+    {!editForm && getUserDetails({firstName, lastName, email})}
 
-    // dispatch(saveShippingAddress({ address, city, code, country }));
-    // navigate('/payment');
+    if(editForm){
+      dispatch(updateUserData({firstName, lastName, email}));
+      navigate("/dashboard");
+      setEditForm(!editForm);
+      toast.success("Details updated successfully !!!");
+    }
 
   };
 
@@ -130,7 +137,7 @@ export default function UserInfoForm({getUserDetails}) {
                   variant="contained"
                   sx={{ mt: 3, mb: 2, color: 'white', backgroundColor: 'black', '&:hover': { backgroundColor: 'grey' }}}
                 >
-                  Save Details
+                  {edit ? 'Edit Details' : 'Save Details'}
                 </Button>
             </Box>
           </Box>
