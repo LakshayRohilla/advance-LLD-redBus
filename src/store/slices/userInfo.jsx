@@ -32,9 +32,15 @@ const userListSlice = createSlice({
 
           localStorage.setItem('userList', JSON.stringify(state.userList));
       },
+      deleteUserData: (state, action) => {
+        const email  = action.payload;
+  
+        state.userList = state.userList.filter((user) => user.email !== email);
+        localStorage.setItem('userList', JSON.stringify(state.userList));
+      },
     },
 });
 
-export const { saveUserData, updateUserData } = userListSlice.actions;
+export const { saveUserData, updateUserData, deleteUserData } = userListSlice.actions;
 
 export default userListSlice.reducer;

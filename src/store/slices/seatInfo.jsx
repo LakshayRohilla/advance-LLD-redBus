@@ -82,9 +82,38 @@ const seatInfoSlice = createSlice({
       
       localStorage.setItem("seatInfo", JSON.stringify(state.seatInfo));
     },
+    updateDeletedSeats: (state, action) => {
+      const seatNames = action.payload;
+      
+      const updateSeatState = (seatArray) => { // I'm taking helper function to update the seats
+        return seatArray.map((seat) => {
+          const [seatName, seatValue] = Object.entries(seat)[0];
+          if (seatNames.includes(seatName)) {
+            return { [seatName]: 0 }; 
+          }
+          return seat; 
+        });
+      };
+
+      // Update all relevant seat arrays
+      state.seatInfo.lowerRightSeats = updateSeatState(
+        state.seatInfo.lowerRightSeats
+      );
+      state.seatInfo.lowerLeftSeats = updateSeatState(
+        state.seatInfo.lowerLeftSeats
+      );
+      state.seatInfo.upperRightSeats = updateSeatState(
+        state.seatInfo.upperRightSeats
+      );
+      state.seatInfo.upperLeftSeats = updateSeatState(
+        state.seatInfo.upperLeftSeats
+      );
+      
+      localStorage.setItem("seatInfo", JSON.stringify(state.seatInfo));
+    }
   },
 });
 
-export const { updateSeats } = seatInfoSlice.actions;
+export const { updateSeats, updateDeletedSeats } = seatInfoSlice.actions;
 
 export default seatInfoSlice.reducer;
