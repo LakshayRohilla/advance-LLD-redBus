@@ -1,10 +1,7 @@
-import { useState } from 'react';
-import UserListTable from './shared/layout/usersListTable';
 import DashboardUserListTable from './shared/layout/dashboardUserListTable';
 import { Box, Typography } from '@mui/material';
 
 const Dashboard = () => {
-    const [isEditing, setIsEditing] = useState(false);
 
     // Fetch user details from local storage store
 
