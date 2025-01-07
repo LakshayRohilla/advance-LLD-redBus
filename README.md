@@ -1,3 +1,14 @@
+# Problem Statement :
+![image](https://github.com/user-attachments/assets/36f193c1-f68b-457c-bf87-7ad3c46c2242)
+![image](https://github.com/user-attachments/assets/b2f8bd39-904d-40e3-9a88-c8406354c676)
+
+# UI :
+### Provided in the problem statement :
+![image](https://github.com/user-attachments/assets/f75844bb-565a-49d9-b1de-a8452210dd2c)
+
+### I developed :
+![image](https://github.com/user-attachments/assets/60726865-e68c-4411-8f07-80c7a71ef52a)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
