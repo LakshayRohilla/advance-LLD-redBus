@@ -58,7 +58,7 @@ const seatInfoSlice = createSlice({
       
       const updateSeatState = (seatArray) => { // I'm taking helper function to update the seats
         return seatArray.map((seat) => {
-          const [seatName, seatValue] = Object.entries(seat)[0];
+          const [seatName] = Object.entries(seat)[0];
           if (seatNames.includes(seatName)) {
             return { [seatName]: 1 }; 
           }
@@ -87,7 +87,7 @@ const seatInfoSlice = createSlice({
       
       const updateSeatState = (seatArray) => { // I'm taking helper function to update the seats
         return seatArray.map((seat) => {
-          const [seatName, seatValue] = Object.entries(seat)[0];
+          const [seatName] = Object.entries(seat)[0];
           if (seatNames.includes(seatName)) {
             return { [seatName]: 0 }; 
           }

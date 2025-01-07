@@ -11,7 +11,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Link, useNavigate } from 'react-router-dom';
 import { updateUserData } from '../../../store/slices/userInfo'
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 
 function Copyright(props) {
@@ -62,7 +62,8 @@ export default function UserInfoForm({getUserDetails, edit, passangerData}) {
     setFirstName(data.get('firstName'));
     setLastName(data.get('lastName'));
     setEmail(data.get('email'));
-    {!editForm && getUserDetails({firstName, lastName, email})}
+
+    !editForm && getUserDetails({firstName, lastName, email})
 
     if(editForm){
       dispatch(updateUserData({firstName, lastName, email, oldEmail}));

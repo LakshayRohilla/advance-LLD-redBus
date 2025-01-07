@@ -2,7 +2,6 @@ import { Box, Typography, Button } from "@mui/material";
 import DonutSmallOutlinedIcon from "@mui/icons-material/DonutSmallOutlined";
 import BusSeatLayput from "../layout/busSeatLayout";
 import Grid from "@mui/material/Grid2";
-import BusSeat from "../UI/busSeat";
 import BusBackSeat from "../UI/busBackSeat";
 import UserInfoForm from '../UI/userInfoForm'
 import {useState} from 'react';
