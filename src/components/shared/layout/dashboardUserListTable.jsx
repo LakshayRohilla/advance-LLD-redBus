@@ -6,6 +6,9 @@ import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { deleteUserData } from '../../../store/slices/userInfo';
+import { updateDeletedSeats } from '../../../store/slices/seatInfo';
+import { toast } from "react-toastify";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -30,13 +33,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 export default function DashboardUserListTable() {
     const {userList} = useSelector((state) => state.user);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleEdit = (row) => {
       navigate('/edit-passanger', {state: row});
     };
   
     const handleDelete = (row) => {
-      alert(`Delete clicked for: ${row.firstName} ${row.lastName}`);
+      dispatch(deleteUserData(row.email));
+      dispatch(updateDeletedSeats(row.allSelectedSeats));
+      toast.success("Passenger deleted successfully !!!");
     };
     
   return (
